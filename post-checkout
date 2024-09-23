@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Get the current branch name
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Define the submodule path
+submodule_path="dummyrepo2/"  # Replace with your submodule path
+
+
+# Otherwise, use the corresponding branch name in the submodule
+submodule_branch=$current_branch
+echo "Checking out the submodule branch corresponding to $current_branch"
+
+# Change into the submodule directory
+cd $submodule_path
+
+# Fetch the latest changes and checkout the correct branch in the submodule
+git fetch origin
+git checkout $submodule_branch
+
+# Pull the latest changes from the remote
+git pull origin $submodule_branch
+
+# Go back to the main repository directory
+cd -
+
+# Update the submodule in the main repository
+git submodule update --remote --merge
