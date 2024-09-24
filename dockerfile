@@ -11,9 +11,6 @@ COPY . /app
 WORKDIR /app
 
 # Copy the post-checkout hook to the .git/hooks directory
-RUN cp post-checkout .git/hooks/post-checkout
-
-# Ensure the post-checkout hook is executable
-RUN chmod +x .git/hooks/post-checkout
+RUN git config core.hooksPath /app/hooks
 
 RUN echo "Git hooks installed."
